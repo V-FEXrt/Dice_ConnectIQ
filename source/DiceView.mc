@@ -49,7 +49,7 @@ class DiceView extends Ui.View {
 
 	        //draw cue
 			dc.setColor( Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT );
-	        dc.drawText((dc.getWidth() / 2), HEIGHT - dc.getFontHeight(Gfx.FONT_SMALL) - 1, Gfx.FONT_SMALL, "Tap and hold to change size of die", Gfx.TEXT_JUSTIFY_CENTER);
+	        dc.drawText((dc.getWidth() / 2), HEIGHT - dc.getFontHeight(Gfx.FONT_SMALL) - 1, Gfx.FONT_SMALL, Ui.loadResource(Rez.Strings.Instructions2), Gfx.TEXT_JUSTIFY_CENTER);
 
 	        //draw dice size
 			dc.setColor( Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT );
@@ -58,7 +58,7 @@ class DiceView extends Ui.View {
 		}else{
 			View.onUpdate(dc);
 			dc.setColor( Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT );
-	        dc.drawText((dc.getWidth() / 2), HEIGHT - dc.getFontHeight(Gfx.FONT_SMALL) - 1, Gfx.FONT_SMALL, "Tap to begin", Gfx.TEXT_JUSTIFY_CENTER);
+	        dc.drawText((dc.getWidth() / 2), HEIGHT - dc.getFontHeight(Gfx.FONT_SMALL) - 1, Gfx.FONT_SMALL, Ui.loadResource(Rez.Strings.Instructions), Gfx.TEXT_JUSTIFY_CENTER);
 		}
 	}
 
@@ -81,13 +81,12 @@ class NPD extends Ui.NumberPickerDelegate {
     }
 }
 
-class InputDelegate extends Ui.InputDelegate{
-	//currently only works on vivofit, and epix
+class InputDelegate extends Ui.BehaviorDelegate{
 	function onTap(){
 		if(start){
 			showNumberPicker(6);
 			start = false;
-			//need to handle cancel btn
+
 		}
 		else
 		{
@@ -97,6 +96,30 @@ class InputDelegate extends Ui.InputDelegate{
 
 	function onHold(){
 		showNumberPicker(selectedNum);
+	}
+
+	function onKey(evt){
+		var key = evt.getKey();
+
+		if(key == Ui.KEY_UP){
+
+			if(start){
+				showNumberPicker(6);
+				start = false;
+
+			}
+			else
+			{
+				Ui.requestUpdate();
+			}
+
+		}else if(key == Ui.KEY_DOWN){
+			if(!start){
+			showNumberPicker(selectedNum);
+			}
+
+		}
+
 	}
 
 	function showNumberPicker(defVal){

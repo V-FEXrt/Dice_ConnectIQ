@@ -1,0 +1,4 @@
+<resources>
+    <string id="Instructions">Tap to begin</string>
+    <string id="Instructions2">Tap and hold to change size of die</string>
+</resources>
