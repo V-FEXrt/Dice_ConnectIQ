@@ -25,6 +25,10 @@ class DiceView extends Ui.View {
 
     //! Update the view
     function onUpdate(dc) {
+
+        HEIGHT = dc.getHeight();
+        WIDTH = dc.getWidth();
+
     //Draw bottom black, top white
         if(!start){
         	//draw background
